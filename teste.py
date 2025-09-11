@@ -38,3 +38,24 @@ print(dados)
 print(dados.dtypes) # mostra os tipos de cada coluna
 
 # Converter os tipos de dados das variavéis
+for col in dados.columns:
+    if col != 'AG05':
+        dados[col] = pd.to_numeric(dados[col], errors="coerce").fillna(0).astype(int)
+
+# Converter AG05 para categoria (se for o caso)
+dados['AG05'] = dados['AG05'].astype('category')
+print(dados.dtypes)
+
+############# Exibindo os atributos numéricos #################
+
+# count: Número de valores não nulos na coluna (exclui NaN)
+# mean:  Média aritmética dos valores
+# std:   Desvio padrão (medida da dispersão dos dados em relação à média)
+# min:   Menor valor da coluna
+# 25%:   Primeiro quartil (25% dos dados estão abaixo desse valor)
+# 50%:   Mediana (metade dos dados estão abaixo desse valor)
+# 75%:   Terceiro quartil (75% dos dados estão abaixo desse valor)
+# max:   Maior valor da coluna
+
+dados.select_dtypes('number').describe().transport()
+print(dados.select_dtypes)
